@@ -53,7 +53,7 @@ int main() {
                 arie = (c1 * c2) / 2;
                 volum = arie * h;
             }
-            compozitie.push_back({arie, volum * 2});
+            compozitie.push_back({ceil(arie), ceil(volum * 2)});
             cout << "Aveti nevoie de " << ceil(arie) << " g de frisca, respectiv " << ceil(volum * 2) << " g de gem\n";
             /* Am folosit ceil, pentru ca in cazul cercului nu va da un numar intreg si practic nu putem avea
              * o cantitate de frisca/gem care sa nu fie fixa */
