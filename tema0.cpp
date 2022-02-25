@@ -41,25 +41,20 @@ public:
     }
 
     friend Numar_Complex operator+(const Numar_Complex &c1, const Numar_Complex &c2) {
-        Numar_Complex S(0, 0);
-        S.a = c1.a + c2.a;
-        S.b = c1.b + c2.b;
+        Numar_Complex S(c1.a + c2.a, c1.b + c2.b);
         return S;
 
     }
 
 
     friend Numar_Complex operator*(const Numar_Complex &c1, const Numar_Complex &c2) {
-        Numar_Complex P(0, 0);
-        P.a = c1.a * c2.a - c1.b * c2.b;
-        P.b = c1.a * c2.b + c2.a * c1.b;
+        Numar_Complex P(c1.a * c2.a - c1.b * c2.b, c1.a * c2.b + c2.a * c1.b);
         return P;
     }
 
     friend Numar_Complex operator/(const Numar_Complex &c1, const Numar_Complex &c2) {
-        Numar_Complex I(0, 0);
-        I.a = (c1.a * c2.a + c1.b * c2.b) / (pow(c2.a, 2) + pow(c2.b, 2));
-        I.b = (c2.a * c1.b - c1.a * c2.b) / (pow(c2.a, 2) + pow(c2.b, 2));
+        Numar_Complex I((c1.a * c2.a + c1.b * c2.b) / (pow(c2.a, 2) + pow(c2.b, 2)),
+                        (c2.a * c1.b - c1.a * c2.b) / (pow(c2.a, 2) + pow(c2.b, 2)));
         return I;
     }
 
