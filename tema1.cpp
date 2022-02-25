@@ -53,5 +53,5 @@ class grupa {
 };
 
 int main() {
-    
+
 }

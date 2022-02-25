@@ -19,8 +19,8 @@ public:
      * am prezentat aceasta varianta) */
 
     Numar_Complex(Numar_Complex &c1) {
-        c1.a = a;
-        c1.b = b;
+        a = c1.a;
+        b = c1.b;
     }
 
     void parte_reala(double a_) {
@@ -89,6 +89,8 @@ int main() {
     cout << "Introduceti partea imaginara:";
     cin >> im;
     Numar_Complex b(re, im);
+    Numar_Complex copie(a);
+    cout << "Copia primului numar complex este: " << copie << "\n";
     cout << "Modulul primului numar complex este: " << a.modul() << "\n";
     cout << "Modulul celui de-al doilea numar complex este: " << b.modul() << "\n";
     cout << "Suma celor doua numere complexe este: " << a + b << "\n";
