@@ -25,9 +25,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
 #am pus problema bunicuta pe executabilul pentru proiect
-add_executable(${PROJECT_NAME} bunicuta.cpp bunicuta.cpp)
+add_executable(${PROJECT_NAME}  bunicuta.cpp)
 add_executable(tema0 tema0.cpp)
-add_executable(tema1 tema1.cpp tema1.cpp)
+add_executable(tema1 tema1.cpp)
 ###############################################################################
 
 # custom compiler flags
