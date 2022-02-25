@@ -77,6 +77,9 @@ Numar_Complex::Numar_Complex() {}
 
 int main() {
     double re, im;
+    Numar_Complex c;
+    c.parte_reala(3), c.parte_imaginara(4);
+    cout << c << "\n";
     cout << "Primul numar complex\n";
     cout << "Introduceti partea reala:";
     cin >> re;
