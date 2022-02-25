@@ -11,6 +11,13 @@ public:
         b = b_;
     }
 
+    Numar_Complex();
+
+    /*Am adaugat inca un constructor implicit, pentru a
+     * nu fi nevoit de fiecare data sa initializeze obiectul
+     * cu anumite valori (a se vedea exemplele de la suma si produs, unde
+     * am prezentat aceasta varianta) */
+
     Numar_Complex(Numar_Complex &c1) {
         c1.a = a;
         c1.b = b;
@@ -41,14 +48,17 @@ public:
     }
 
     friend Numar_Complex operator+(const Numar_Complex &c1, const Numar_Complex &c2) {
-        Numar_Complex S(c1.a + c2.a, c1.b + c2.b);
+        Numar_Complex S;
+        S.a = c1.a + c2.a;
+        S.b = c1.b + c2.b;
         return S;
-
     }
 
 
     friend Numar_Complex operator*(const Numar_Complex &c1, const Numar_Complex &c2) {
-        Numar_Complex P(c1.a * c2.a - c1.b * c2.b, c1.a * c2.b + c2.a * c1.b);
+        Numar_Complex P;
+        P.a = c1.a * c2.a - c1.b * c2.b;
+        P.b = c1.a * c2.b + c2.a * c1.b;
         return P;
     }
 
@@ -62,6 +72,8 @@ public:
         return sqrt(pow(a, 2) + pow(b, 2));
     }
 };
+
+Numar_Complex::Numar_Complex() {}
 
 int main() {
     double re, im;
