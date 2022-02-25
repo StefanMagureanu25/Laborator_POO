@@ -24,8 +24,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp)
-
+add_executable(${PROJECT_NAME} bunicuta.cpp tema0.cpp)
 ###############################################################################
 
 # custom compiler flags
