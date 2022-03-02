@@ -136,10 +136,6 @@ double grupa::medie(vector<student> Studenti) {
 
 
 int main() {
-//    Stefan 2002 16 8.5
-//    Daria 2004 15 9
-//    Marian 2001 17 6
-//    Mihai 2007 12 7
     string s, operatie;
     int nr_studenti, index;
     cout << "Introduceti numarul de studenti:";
