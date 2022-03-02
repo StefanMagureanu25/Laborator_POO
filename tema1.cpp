@@ -20,7 +20,9 @@ public:
 
     student() {}    //constructor implicit
 
-    ~student() {}
+    ~student() {
+        nume.clear();
+    }
 
     void setNume(char *numele) {
         nume = numele;
@@ -94,12 +96,16 @@ public:
  * obiectul care apartine clasei 'grupa' a retinut vectorul
  * de studenti, respectiv nr_studenti */
 
-    ~grupa() {}
+    ~grupa() {
+        studenti.clear();
+    }
 
-    double medie(vector<student> Studenti, int nr);
+    double medie(vector<student> Studenti);
 
     void delete_student(int index) {
-        studenti.erase(studenti.begin() + index);
+        //numaratoarea incepe de la 0
+        if (index <= studenti.size() - 1)
+            studenti.erase(studenti.begin() + index);
     }
 
     void add_student(student s) {
@@ -120,11 +126,11 @@ public:
     }
 };
 
-double grupa::medie(vector<student> Studenti, int nr) {
+double grupa::medie(vector<student> Studenti) {
     double S = 0;
-    for (int i = 0; i < nr; i++)
+    for (int i = 0; i < Studenti.size(); i++)
         S += Studenti[i].getMedieGenerala();
-    medie_generala_grupa = (double) S / nr;
+    medie_generala_grupa = (double) S / Studenti.size();
     return medie_generala_grupa;
 }
 
@@ -134,7 +140,7 @@ int main() {
 //    Daria 2004 15 9
 //    Marian 2001 17 6
 //    Mihai 2007 12 7
-    string s;
+    string s, operatie;
     int nr_studenti, index;
     cout << "Introduceti numarul de studenti:";
     cin >> nr_studenti;
@@ -144,24 +150,36 @@ int main() {
         cin >> entitate;
         entitati.push_back(entitate);
     }
-    cout << "Studentii introdusi sunt:\n";
-    for (int i = 0; i < entitati.size(); i++)
-        cout << entitati[i] << "\n";
     grupa studenti(entitati, nr_studenti);
-    cout << "Introduceti studentul pe care doriti sa-l mai adaugati:";
-    cin >> entitate;
-    studenti.add_student(entitate);
-    cout << "Studentii dupa introducere:\n" << studenti;
-    cout << "Introduceti pozitia de pe care doriti sa stergeti un student: ";
-    cin >> index;
-    studenti.delete_student(index);
-    cout << "Studentii dupa stergere:\n" << studenti;
-    cout << "Introduceti studentul pe care doriti sa-l cautati:";
-    cin >> s;
-    if (studenti.check_student(s))
-        cout << s << " se afla in grupa\n";
-    else
-        cout << s << " nu se afla in grupa\n";
-    cout << "Media generala a grupei este: " << studenti.medie(studenti.getStudenti(), nr_studenti);
-    return 0;
+    while (operatie != "EXIT") {
+        cout << "Operatii(meniul principal):\n";
+        cout << "Pentru a adauga un student, tastati ADD\n";
+        cout << "Pentru a sterge un student, tastati DELETE\n";
+        cout << "Pentru a cauta un student dupa nume, tastati SEARCH\n";
+        cout << "Pentru a vedea toti studentii introdusi, tastati SEE\n";
+        cout << "Pentru a calcula media generala a tuturor studentilor, tastati AVERAGE\n";
+        cout << "Pentru a iesi, tastati EXIT\n";
+        cin >> operatie;
+        if (operatie == "ADD") {
+            cout << "Introduceti datele pentru student:";
+            cin >> entitate;
+            studenti.add_student(entitate);
+        } else if (operatie == "DELETE") {
+            cout << "Introduceti pozitia de pe care doriti sa stergeti studentul:";
+            cin >> index;
+            studenti.delete_student(index);
+        } else if (operatie == "SEE") {
+            cout << studenti;
+        } else if (operatie == "AVERAGE") {
+            cout << "Media generala a grupei este: " << studenti.medie(studenti.getStudenti()) << "\n";
+        } else if (operatie == "SEARCH") {
+
+            cout << "Introduceti numele studentului pe care doriti sa-l cautati:";
+            cin >> s;
+            if (studenti.check_student(s))
+                cout << s << " se afla in grupa\n";
+            else
+                cout << s << " nu se afla in grupa\n";
+        }
+    }
 }

@@ -11,7 +11,7 @@ public:
         b = b_;
     }
 
-    Numar_Complex();
+    Numar_Complex() {}
 
     /*Am adaugat inca un constructor implicit, pentru a
      * nu fi nevoit de fiecare data sa initializeze obiectul
@@ -73,7 +73,6 @@ public:
     }
 };
 
-Numar_Complex::Numar_Complex() {}
 
 int main() {
     double re, im;
