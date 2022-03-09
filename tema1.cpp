@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+
 using namespace std;
 
 
@@ -91,6 +92,23 @@ public:
         return studenti;
     }
 
+    int getNrStudenti() const {
+        return nr_studenti;
+    }
+
+    double getMedieGeneralaGrupa() const {
+        return medie_generala_grupa;
+    }
+
+    void setNrStudenti(int nrStudenti) {
+        nr_studenti = nrStudenti;
+    }
+
+    void setStudenti(const vector<student> &Studenti) {
+        for (int i = 0; i < Studenti.size(); i++)
+            studenti.push_back(Studenti[i]);
+    }
+
 /* Nu am pus si media_generala_grupe in constructor,
  * pentru ca aceasta trebuie calculata la urma, dupa ce
  * obiectul care apartine clasei 'grupa' a retinut vectorul
@@ -100,7 +118,7 @@ public:
         studenti.clear();
     }
 
-    double medie(vector<student> Studenti);
+    friend double medie(grupa &g);
 
     void delete_student(int index) {
         //numaratoarea incepe de la 0
@@ -126,12 +144,12 @@ public:
     }
 };
 
-double grupa::medie(vector<student> Studenti) {
+double medie(grupa &g) {
     double S = 0;
-    for (int i = 0; i < Studenti.size(); i++)
-        S += Studenti[i].getMedieGenerala();
-    medie_generala_grupa = (double) S / Studenti.size();
-    return medie_generala_grupa;
+    for (int i = 0; i < g.studenti.size(); i++)
+        S += g.studenti[i].getMedieGenerala();
+    g.medie_generala_grupa = (double) S / g.studenti.size();
+    return g.medie_generala_grupa;
 }
 
 
@@ -167,7 +185,7 @@ int main() {
         } else if (operatie == "SEE") {
             cout << studenti;
         } else if (operatie == "AVERAGE") {
-            cout << "Media generala a grupei este: " << studenti.medie(studenti.getStudenti()) << "\n";
+            cout << "Media generala a grupei este: " << medie(studenti) << "\n";
         } else if (operatie == "SEARCH") {
 
             cout << "Introduceti numele studentului pe care doriti sa-l cautati:";
@@ -178,4 +196,5 @@ int main() {
                 cout << s << " nu se afla in grupa\n";
         }
     }
+    return 0;
 }
