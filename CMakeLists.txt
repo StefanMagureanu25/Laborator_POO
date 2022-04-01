@@ -29,6 +29,7 @@ add_executable(${PROJECT_NAME}  bunicuta.cpp)
 add_executable(tema0 tema0.cpp)
 add_executable(tema1 tema1.cpp)
 add_executable(circuit circuit.cpp)
+add_executable(tema2 tema2.cpp)
 ###############################################################################
 
 # custom compiler flags
