@@ -16,6 +16,8 @@ Abonat &Abonat::operator=(const Abonat &ab) {
     this->pretAbonament = ab.pretAbonament;
     this->nrCartiImprumutate = ab.nrCartiImprumutate;
     this->nrMaxCarti = ab.nrMaxCarti;
+    this->setName(ab.getName());
+    this->setCnp(ab.getCnp());
     return *this;
 }
 
@@ -45,7 +47,21 @@ void Abonat::setPretAbonament(int pretAbonament_) {
 }
 
 std::istream &operator>>(std::istream &is, Abonat &ab) {
-    std::cin >> ab.nrMaxCarti >> ab.nrCartiImprumutate >> ab.pretAbonament;
+    std::string nume, cnp;
+    std::cout << "Numele abonatului:";
+    std::cin >> nume;
+    std::cout << "CNP-ul abonatului:";
+    std::cin >> cnp;
+    if (cnp[0] == '9' || cnp.size() != 13)
+        throw Invalid_argument();
+    std::cout << "nrMaxCarti:";
+    std::cin >> ab.nrMaxCarti;
+    std::cout << "nrCartiImprumutate:";
+    std::cin >> ab.nrCartiImprumutate;
+    std::cout << "pretAbonament:";
+    std::cin >> ab.pretAbonament;
+    ab.setName(nume);
+    ab.setCnp(cnp);
     return is;
 }
 

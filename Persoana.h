@@ -3,7 +3,16 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
+#include <memory>
 #include <string>
+
+class Invalid_argument : public std::exception {
+public:
+    Invalid_argument();
+
+    const char *what() const noexcept override;
+};
 
 class Persoana {
 private:

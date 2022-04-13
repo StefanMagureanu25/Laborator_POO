@@ -1,9 +1,16 @@
 #include "Persoana.h"
 
+Invalid_argument::Invalid_argument() = default;
+
+const char *Invalid_argument::what() const noexcept {
+    return "Cnp-ul introdus nu este bun.";
+}
+
 Persoana::Persoana() {}
 
 
-Persoana::Persoana(std::string name, std::string CNP) : name(std::move(name)), cnp(std::move(CNP)) {}
+Persoana::Persoana(std::string name, std::string CNP) : name(std::move(name)), cnp(std::move(CNP)) {
+}
 
 void Persoana::setName(const std::string &nume) {
     this->name = nume;
@@ -26,9 +33,8 @@ Persoana::Persoana(Persoana &pers) {
     this->name = pers.name;
 }
 
-Persoana::~Persoana() {
-    name.clear(), cnp.clear();
-}
+Persoana::~Persoana() = default;
+
 
 Persoana &Persoana::operator=(const Persoana &p) {
     this->cnp = p.cnp;
@@ -42,6 +48,8 @@ Persoana &Persoana::operator=(const Persoana &p) {
 
 std::istream &operator>>(std::istream &is, Persoana &pers) {
     is >> pers.name >> pers.cnp;
+    if (pers.cnp[0] == '9' || pers.cnp.size() != 13)
+        throw Invalid_argument();
     return is;
 }
 

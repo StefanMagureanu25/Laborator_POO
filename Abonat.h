@@ -2,7 +2,6 @@
 #define _ABONAT_H_
 #pragma once
 
-#include <iostream>
 #include "Persoana.h"
 
 class Abonat : public Persoana {
