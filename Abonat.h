@@ -29,6 +29,8 @@ public:
     Abonat(std::string name_, std::string CNP_, int nrMaxCarti_, int nrCartiImprumutate_,
            int pretAbonament_);
 
+    Abonat(const Abonat &ab);
+
     Abonat &operator=(const Abonat &ab);
 
     virtual int getVarsta(int zi_curenta, int luna_curenta, int an_curent) override;
@@ -47,7 +49,7 @@ public:
 
     friend std::istream &operator>>(std::istream &is, Abonat &ab);
 
-    friend std::ostream &operator<<(std::ostream &os, const Abonat &ab);
+    friend std::ostream &operator<<(std::ostream &os, std::shared_ptr<Abonat> ab);
 
 };
 

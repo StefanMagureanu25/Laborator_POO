@@ -6,6 +6,7 @@
 
 class Meniu : public Dosar {
     Dosar d;
+    std::string comanda;
 public:
     Meniu();
 };

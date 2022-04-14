@@ -10,17 +10,17 @@ class Dosar : public Abonat {
 public:
     static int getNrAbonati();
 
-    std::vector<std::shared_ptr<Abonat>> getAbonati();
-
     Dosar();
 
-    ~Dosar();
+    ~Dosar() override;
 
     Dosar &operator=(const std::vector<std::shared_ptr<Abonat>> &dosar);
 
     void addAbonati(std::shared_ptr<Abonat> ab);
 
-    friend std::ostream &operator<<(std::ostream &os, const std::vector<std::shared_ptr<Abonat>> &ab);
+    friend std::ostream &operator<<(std::ostream &os, const Dosar &d);
+
+    const std::vector<std::shared_ptr<Abonat>> &getAbonati() const;
 
 };
 

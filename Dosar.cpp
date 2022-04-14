@@ -4,7 +4,7 @@ int Dosar::getNrAbonati() {
     return nr_abonati;
 }
 
-std::vector<std::shared_ptr<Abonat>> Dosar::getAbonati() {
+const std::vector<std::shared_ptr<Abonat>> &Dosar::getAbonati() const {
     return abonati;
 }
 
@@ -17,9 +17,9 @@ void Dosar::addAbonati(std::shared_ptr<Abonat> ab) {
     nr_abonati++;
 }
 
-std::ostream &operator<<(std::ostream &os, const std::vector<std::shared_ptr<Abonat>> &ab) {
+std::ostream &operator<<(std::ostream &os, const Dosar &d) {
     int count = 1;
-    for (const auto &it: ab) {
+    for (auto it: d.getAbonati()) {
         os << count << "\n";
         os << "Numele abonatului: " << it->getName() << "\n";
         os << "CNP-ul abonatului: " << it->getCnp() << "\n";

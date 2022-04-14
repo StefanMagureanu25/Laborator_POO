@@ -51,6 +51,14 @@ Abonat::Abonat(std::string name_, std::string CNP_, int nrMaxCarti_, int nrCarti
     pretAbonament = pretAbonament_;
 }
 
+Abonat::Abonat(const Abonat &ab) : Persoana() {
+    Abonat::nrMaxCarti = ab.nrMaxCarti;
+    Abonat::nrCartiImprumutate = ab.nrCartiImprumutate;
+    Abonat::pretAbonament = ab.pretAbonament;
+    Abonat::setName(ab.getName());
+    Abonat::setCnp(ab.getCnp());
+}
+
 Abonat &Abonat::operator=(const Abonat &ab) {
     this->pretAbonament = ab.pretAbonament;
     this->nrCartiImprumutate = ab.nrCartiImprumutate;
@@ -119,11 +127,10 @@ std::istream &operator>>(std::istream &is, Abonat &ab) {
     is >> ab.nrMaxCarti;
     std::cout << "nrCartiImprumutate:";
     is >> ab.nrCartiImprumutate;
-    std::cout << "pretAbonament:";
-    is >> ab.pretAbonament;
-
     if (ab.nrCartiImprumutate > ab.nrMaxCarti)
         throw Carti_imprumutate();
+    std::cout << "pretAbonament:";
+    is >> ab.pretAbonament;
     if (ab.nrMaxCarti > ab.pretAbonament)
         throw nr_Max();
 
@@ -132,12 +139,12 @@ std::istream &operator>>(std::istream &is, Abonat &ab) {
     return is;
 }
 
-std::ostream &operator<<(std::ostream &os, const Abonat &ab) {
-    os << "Numele abonatului: " << ab.getName() << "\n";
-    os << "CNP-ul abonatului: " << ab.getCnp() << "\n";
-    os << "nrMaxCarti: " << ab.nrMaxCarti << "\n";
-    os << "nrCartiImprumutate: " << ab.nrCartiImprumutate << "\n";
-    os << "pretAbonament: " << ab.pretAbonament << "\n";
+std::ostream &operator<<(std::ostream &os, std::shared_ptr<Abonat> ab) {
+    os << "Numele abonatului: " << ab->getName() << "\n";
+    os << "CNP-ul abonatului: " << ab->getCnp() << "\n";
+    os << "nrMaxCarti: " << ab->getNrMaxCarti() << "\n";
+    os << "nrCartiImprumutate: " << ab->getNrCartiImprumutate() << "\n";
+    os << "pretAbonament: " << ab->getPretAbonament() << "\n";
     return os;
 }
 
