@@ -7,6 +7,27 @@
 #include <memory>
 #include <string>
 
+class Cnp_incorect : public std::exception {
+public:
+    Cnp_incorect();
+
+    const char *what() const noexcept override;
+};
+
+class Zi_invalida : public std::exception {
+public:
+    Zi_invalida();
+
+    const char *what() const noexcept override;
+};
+
+class Luna_invalida : public std::exception {
+public:
+    Luna_invalida();
+
+    const char *what() const noexcept override;
+};
+
 class Invalid_argument : public std::exception {
 public:
     Invalid_argument();
@@ -25,6 +46,8 @@ public:
     void setName(const std::string &nume);
 
     void setCnp(const std::string &cnp);
+
+    virtual int getVarsta(int zi_curenta, int luna_curenta, int an_curent);
 
     const std::string &getName() const;
 

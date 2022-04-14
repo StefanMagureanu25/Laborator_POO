@@ -25,7 +25,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
 #am pus problema bunicuta pe executabilul pentru proiect
-add_executable(${PROJECT_NAME} main.cpp Persoana.cpp Abonat.cpp Dosar.cpp)
+add_executable(${PROJECT_NAME} main.cpp Persoana.cpp Abonat.cpp Dosar.cpp Meniu.cpp)
 add_executable(tema0 tema0.cpp)
 add_executable(tema1 tema1.cpp)
 add_executable(circuit circuit.cpp)

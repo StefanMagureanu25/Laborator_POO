@@ -4,6 +4,21 @@
 
 #include "Persoana.h"
 
+
+class nr_Max : public std::exception {
+public:
+    nr_Max();
+
+    const char *what() const noexcept override;
+};
+
+class Carti_imprumutate : public std::exception {
+public:
+    Carti_imprumutate();
+
+    const char *what() const noexcept override;
+};
+
 class Abonat : public Persoana {
     int nrMaxCarti, nrCartiImprumutate, pretAbonament;
 public:
@@ -15,6 +30,8 @@ public:
            int pretAbonament_);
 
     Abonat &operator=(const Abonat &ab);
+
+    virtual int getVarsta(int zi_curenta, int luna_curenta, int an_curent) override;
 
     int getNrMaxCarti() const;
 

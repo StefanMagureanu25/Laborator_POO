@@ -1,5 +1,44 @@
 #include "Abonat.h"
 
+nr_Max::nr_Max() = default;
+
+const char *nr_Max::what() const noexcept {
+    return "Numarul maxim de carti este mai mare decat pretul abonamentului";
+}
+
+Carti_imprumutate::Carti_imprumutate() = default;
+
+const char *Carti_imprumutate::what() const noexcept {
+    return "Numarul de carti imprumutate este mai mare decat numarul maxim de carti";
+}
+
+int Abonat::getVarsta(int zi_curenta, int luna_curenta, int an_curent) {
+    std::string an_modificat;
+    int varsta;
+    int zi, luna, an;
+    if (Abonat::getCnp()[3] == '0')
+        luna = Abonat::getCnp()[4] - '0';
+    else
+        luna = std::stoi(Abonat::getCnp().substr(3, 2));
+    if (Abonat::getCnp()[5] == '0')
+        zi = Abonat::getCnp()[6] - '0';
+    else
+        zi = std::stoi(Abonat::getCnp().substr(5, 2));
+    if (std::stoi(Abonat::getCnp().substr(1, 2)) <= 22) {
+        an_modificat = "20";
+        an_modificat += Abonat::getCnp().substr(1, 2);
+        an = std::stoi(an_modificat);
+    } else {
+        an_modificat = "19";
+        an_modificat += Abonat::getCnp().substr(1, 2);
+        an = std::stoi(an_modificat);
+    }
+    varsta = an_curent - an;
+    if (luna_curenta < luna || (luna_curenta >= luna && zi_curenta < zi))
+        varsta--;
+    return varsta;
+}
+
 Abonat::Abonat() {}
 
 Abonat::Abonat(std::string name_, std::string CNP_) : Persoana(
@@ -49,28 +88,56 @@ void Abonat::setPretAbonament(int pretAbonament_) {
 std::istream &operator>>(std::istream &is, Abonat &ab) {
     std::string nume, cnp;
     std::cout << "Numele abonatului:";
-    std::cin >> nume;
+    is >> nume;
     std::cout << "CNP-ul abonatului:";
-    std::cin >> cnp;
+    is >> cnp;
     if (cnp[0] == '9' || cnp.size() != 13)
         throw Invalid_argument();
+    for (auto cifra: cnp) {
+        if (!isdigit(cifra))
+            throw Cnp_incorect();
+    }
+    if ((cnp[3] == '1' && cnp[4] > '2') || cnp[3] > '1' || (cnp[3] == '0' && cnp[4] == '0'))
+        throw Luna_invalida();
+    if ((cnp[3] == '0' && cnp[4] == '1') || (cnp[3] == '0' && cnp[4] == '3') ||
+        (cnp[3] == '0' && cnp[4] == '5') || (cnp[3] == '0' && cnp[4] == '7') ||
+        (cnp[3] == '0' && cnp[4] == '8') || (cnp[3] == '1' && cnp[4] == '0') ||
+        (cnp[3] == '1' && cnp[4] == '2')) {
+        if (cnp[5] > '3' || (cnp[5] == '3' && cnp[6] > '1') ||
+            (cnp[5] == '0' && cnp[6] == '0'))
+            throw Zi_invalida();
+    } else if (cnp[3] == '0' && cnp[4] == '2') { //Februarie
+        if (cnp[5] > '2' || (cnp[5] == '2' && cnp[6] > '8') ||
+            (cnp[5] == '0' && cnp[6] == '0'))
+            throw Zi_invalida();
+    } else {
+        if (cnp[5] > '3' || (cnp[5] == '3' && cnp[6] > '0') ||
+            (cnp[5] == '0' && cnp[6] == '0'))
+            throw Zi_invalida();
+    }
     std::cout << "nrMaxCarti:";
-    std::cin >> ab.nrMaxCarti;
+    is >> ab.nrMaxCarti;
     std::cout << "nrCartiImprumutate:";
-    std::cin >> ab.nrCartiImprumutate;
+    is >> ab.nrCartiImprumutate;
     std::cout << "pretAbonament:";
-    std::cin >> ab.pretAbonament;
+    is >> ab.pretAbonament;
+
+    if (ab.nrCartiImprumutate > ab.nrMaxCarti)
+        throw Carti_imprumutate();
+    if (ab.nrMaxCarti > ab.pretAbonament)
+        throw nr_Max();
+
     ab.setName(nume);
     ab.setCnp(cnp);
     return is;
 }
 
 std::ostream &operator<<(std::ostream &os, const Abonat &ab) {
-    std::cout << "Numele abonatului: " << ab.getName() << "\n";
-    std::cout << "CNP-ul abonatului: " << ab.getCnp() << "\n";
-    std::cout << "nrMaxCarti: " << ab.nrMaxCarti << "\n";
-    std::cout << "nrCartiImprumutate: " << ab.nrCartiImprumutate << "\n";
-    std::cout << "pretAbonament: " << ab.pretAbonament << "\n";
+    os << "Numele abonatului: " << ab.getName() << "\n";
+    os << "CNP-ul abonatului: " << ab.getCnp() << "\n";
+    os << "nrMaxCarti: " << ab.nrMaxCarti << "\n";
+    os << "nrCartiImprumutate: " << ab.nrCartiImprumutate << "\n";
+    os << "pretAbonament: " << ab.pretAbonament << "\n";
     return os;
 }
 
